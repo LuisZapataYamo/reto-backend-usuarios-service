@@ -6,8 +6,6 @@ import com.example.application.mapper.UsuarioMapper;
 import com.example.application.usecase.interfaces.ICrearUsuarioUseCase;
 import com.example.domain.model.UsuarioModel;
 import com.example.domain.port.in.ICrearUsuarioServicePortIn;
-import com.example.domain.model.response.UsuarioResponseModel;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +15,6 @@ public class CrearUsuarioUseCase implements ICrearUsuarioUseCase {
 
     private final ICrearUsuarioServicePortIn crearUsuarioServicePortIn;
     private final UsuarioMapper usuarioMapper;
-    //private final ObjectMapper objectMapper;
 
     @Override
     public UsuarioResponseDto crearUsuarioAdministrador(UsuarioAdministradorRequestDto usuarioAdministradorRequestDto) {

@@ -6,6 +6,5 @@ import com.example.application.dto.response.UsuarioResponseDto;
 public interface ICrearUsuarioUseCase {
 
     UsuarioResponseDto crearUsuarioAdministrador(UsuarioAdministradorRequestDto usuarioRequestModel);
-    //UsuarioResponseDto crearUsuarioCliente(UsuarioAdministradorRequestDto usuarioRequestModel);
 
 }

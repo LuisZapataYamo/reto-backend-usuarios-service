@@ -2,8 +2,6 @@ package com.example.infrastructure.persistence.jpa.adapter;
 
 import com.example.domain.model.UsuarioModel;
 import com.example.domain.port.out.IUsuarioServicePortOut;
-import com.example.domain.model.request.UsuarioRequestModel;
-import com.example.domain.model.response.UsuarioResponseModel;
 import com.example.infrastructure.persistence.jpa.entity.UsuarioEntity;
 import com.example.infrastructure.persistence.jpa.repository.JpaUsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;

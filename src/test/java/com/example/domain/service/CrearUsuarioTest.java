@@ -33,11 +33,6 @@ public class CrearUsuarioTest {
     @InjectMocks
     private CrearUsuarioUseCase crearUsuarioUseCase;
 
-    //@BeforeEach
-    //void setUp() {
-    //    MockitoAnnotations.openMocks(this);
-    //}
-
     @Test
     void testCreateUser() {
         // Arrange
