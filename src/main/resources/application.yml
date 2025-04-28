@@ -1,0 +1,16 @@
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bd_usuarios
+    username: postgres
+    password: 123456789
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop
+  application:
+    name: usuarios-service
+
+server:
+  port: 8081
