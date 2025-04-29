@@ -18,7 +18,7 @@ public class UsuarioModel {
     private UUID id;
     private String name;
     private String lastname;
-    private Long documentID;
+    private String documentID;
     private String phone;
     private String email;
     private String password;
@@ -29,12 +29,7 @@ public class UsuarioModel {
         this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
     }
 
-    private void setRole() {
-        this.rol = UserRolEnum.OWNER;
-    }
-
     public void sanitize(){
         this.encryptPassword();
-        this.setRole();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.domain.service;
 
+import com.example.domain.enums.UserRolEnum;
 import com.example.domain.model.UsuarioModel;
 import com.example.domain.port.in.ICrearUsuarioServicePortIn;
 import com.example.domain.port.out.IUsuarioServicePortOut;
@@ -13,9 +14,10 @@ public class CrearUsuario implements ICrearUsuarioServicePortIn {
     private final IUsuarioServicePortOut crearUsuarioServicePortOut;
 
     @Override
-    public UsuarioModel crearUsuario(UsuarioModel usuarioRequestModel) {
+    public UsuarioModel crearUsuarioOwner(UsuarioModel usuarioRequestModel) {
+        usuarioRequestModel.setRol(UserRolEnum.OWNER);
         usuarioRequestModel.sanitize();
-        UsuarioValidator.validateUsuario(usuarioRequestModel);
+        UsuarioValidator.validateUsuarioOwner(usuarioRequestModel);
         return crearUsuarioServicePortOut.crearUsuario(usuarioRequestModel);
     }
 }

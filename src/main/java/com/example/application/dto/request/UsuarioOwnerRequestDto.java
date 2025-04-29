@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioAdministradorRequestDto {
+public class UsuarioOwnerRequestDto {
     @NotNull
     private String name;
 

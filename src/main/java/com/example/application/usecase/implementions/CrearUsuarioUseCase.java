@@ -1,6 +1,6 @@
 package com.example.application.usecase.implementions;
 
-import com.example.application.dto.request.UsuarioAdministradorRequestDto;
+import com.example.application.dto.request.UsuarioOwnerRequestDto;
 import com.example.application.dto.response.UsuarioResponseDto;
 import com.example.application.mapper.UsuarioMapper;
 import com.example.application.usecase.interfaces.ICrearUsuarioUseCase;
@@ -17,8 +17,8 @@ public class CrearUsuarioUseCase implements ICrearUsuarioUseCase {
     private final UsuarioMapper usuarioMapper;
 
     @Override
-    public UsuarioResponseDto crearUsuarioAdministrador(UsuarioAdministradorRequestDto usuarioAdministradorRequestDto) {
-        UsuarioModel response = crearUsuarioServicePortIn.crearUsuario(usuarioMapper.usuarioAdministradorRequestDtoToUsuarioRequestModel(usuarioAdministradorRequestDto));
-        return usuarioMapper.usuarioAdminRequestDtoToModel(response);
+    public UsuarioResponseDto crearUsuarioOwner(UsuarioOwnerRequestDto usuarioOwnerRequestDto) {
+        UsuarioModel response = crearUsuarioServicePortIn.crearUsuarioOwner(usuarioMapper.usuarioOwnerRequestDtoToModel(usuarioOwnerRequestDto));
+        return usuarioMapper.modelToUsuarioResponse(response);
     }
 }

@@ -4,5 +4,5 @@ import com.example.domain.model.UsuarioModel;
 
 public interface ICrearUsuarioServicePortIn {
 
-    UsuarioModel crearUsuario(UsuarioModel usuarioRequestModel);
+    UsuarioModel crearUsuarioOwner(UsuarioModel usuarioRequestModel);
 }
