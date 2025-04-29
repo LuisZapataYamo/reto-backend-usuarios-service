@@ -3,22 +3,28 @@ package com.example.infrastructure.rest;
 import com.example.application.dto.request.UsuarioAdministradorRequestDto;
 import com.example.application.dto.response.UsuarioResponseDto;
 import com.example.application.usecase.interfaces.ICrearUsuarioUseCase;
+import com.example.application.usecase.interfaces.IObtenerUsuarioUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
-@RequestMapping("users/admin")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UsuarioController {
     private final ICrearUsuarioUseCase crearUsuario;
+    private final IObtenerUsuarioUseCase obtenerUsuario;
 
-    @PostMapping("/")
+    @PostMapping("/admin")
     public ResponseEntity<UsuarioResponseDto> crearUsuario(@Valid @RequestBody UsuarioAdministradorRequestDto usuarioRequestDto) {
          return ResponseEntity.ok(crearUsuario.crearUsuarioAdministrador(usuarioRequestDto));
+    }
+
+    @GetMapping("/{idUsuario}")
+    public ResponseEntity<UsuarioResponseDto> getUsuario(@PathVariable UUID idUsuario) {
+        return ResponseEntity.ok(obtenerUsuario.obtenerUsuario(idUsuario));
     }
 }

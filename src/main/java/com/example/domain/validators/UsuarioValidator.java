@@ -1,5 +1,6 @@
 package com.example.domain.validators;
 
+import com.example.domain.exception.UsuarioNoLegalAge;
 import com.example.domain.model.UsuarioModel;
 
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ public class UsuarioValidator {
 
     private static void validateLegalAge(LocalDate birthDate) {
         if(Period.between(birthDate, LocalDate.now()).getYears() < 18) {
-            throw new IllegalArgumentException("El usuario no es mayor de edad");
+            throw new UsuarioNoLegalAge();
         }
     }
 }

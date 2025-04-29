@@ -1,5 +1,6 @@
 package com.example.infrastructure.persistence.jpa.adapter;
 
+import com.example.domain.exception.UsuarioNotFound;
 import com.example.domain.model.UsuarioModel;
 import com.example.domain.port.out.IUsuarioServicePortOut;
 import com.example.infrastructure.persistence.jpa.entity.UsuarioEntity;
@@ -7,6 +8,8 @@ import com.example.infrastructure.persistence.jpa.repository.JpaUsuarioRepositor
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import java.util.UUID;
 
 
 @Repository
@@ -22,4 +25,12 @@ public class UsuarioJpaRepositoryAdapter implements IUsuarioServicePortOut {
         UsuarioEntity saved = jpaUsuarioRepository.save(usuarioEntity);
         return objectMapper.convertValue(saved, UsuarioModel.class);
     }
+
+    @Override
+    public UsuarioModel getUsuarioByID(UUID usuarioID) {
+        UsuarioEntity usuarioEntity = jpaUsuarioRepository.findById(usuarioID).orElseThrow(UsuarioNotFound::new);
+        return objectMapper.convertValue(usuarioEntity, UsuarioModel.class);
+    }
+
+
 }
