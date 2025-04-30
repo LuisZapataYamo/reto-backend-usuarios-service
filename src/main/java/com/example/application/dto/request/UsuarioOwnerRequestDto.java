@@ -25,7 +25,7 @@ public class UsuarioOwnerRequestDto {
     private String lastname;
 
     @NotNull
-    private Long documentID;
+    private String documentID;
 
     @Pattern(regexp = "\\+?[0-9]{1,12}")
     private String phone;

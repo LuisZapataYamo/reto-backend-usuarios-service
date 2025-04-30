@@ -18,7 +18,7 @@ public class UsuarioResponseDto {
     private UUID id;
     private String name;
     private String lastname;
-    private Long documentID;
+    private String documentID;
     private String phone;
     private String email;
     //private String password;

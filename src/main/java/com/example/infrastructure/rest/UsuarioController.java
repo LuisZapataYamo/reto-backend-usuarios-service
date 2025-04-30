@@ -1,6 +1,6 @@
 package com.example.infrastructure.rest;
 
-import com.example.application.dto.request.UsuarioAdministradorRequestDto;
+import com.example.application.dto.request.UsuarioOwnerRequestDto;
 import com.example.application.dto.response.UsuarioResponseDto;
 import com.example.application.usecase.interfaces.ICrearUsuarioUseCase;
 import com.example.application.usecase.interfaces.IObtenerUsuarioUseCase;
@@ -19,8 +19,8 @@ public class UsuarioController {
     private final IObtenerUsuarioUseCase obtenerUsuario;
 
     @PostMapping("/admin")
-    public ResponseEntity<UsuarioResponseDto> crearUsuario(@Valid @RequestBody UsuarioAdministradorRequestDto usuarioRequestDto) {
-         return ResponseEntity.ok(crearUsuario.crearUsuarioAdministrador(usuarioRequestDto));
+    public ResponseEntity<UsuarioResponseDto> crearUsuario(@Valid @RequestBody UsuarioOwnerRequestDto usuarioRequestDto) {
+         return ResponseEntity.ok(crearUsuario.crearUsuarioOwner(usuarioRequestDto));
     }
 
     @GetMapping("/{idUsuario}")

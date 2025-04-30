@@ -1,18 +1,16 @@
 package com.example.domain.service;
 
-import com.example.application.dto.request.UsuarioAdministradorRequestDto;
+import com.example.application.dto.request.UsuarioOwnerRequestDto;
 import com.example.application.dto.response.UsuarioResponseDto;
 import com.example.application.mapper.UsuarioMapper;
 import com.example.application.usecase.implementions.CrearUsuarioUseCase;
 import com.example.domain.enums.UserRolEnum;
 import com.example.domain.model.UsuarioModel;
 import com.example.domain.port.in.ICrearUsuarioServicePortIn;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.UUID;
@@ -36,8 +34,8 @@ public class CrearUsuarioTest {
     @Test
     void testCreateUser() {
         // Arrange
-        UsuarioAdministradorRequestDto requestDto = new UsuarioAdministradorRequestDto();
-        requestDto.setDocumentID(123456L);
+        UsuarioOwnerRequestDto requestDto = new UsuarioOwnerRequestDto();
+        requestDto.setDocumentID("123456");
         requestDto.setName("John");
         requestDto.setLastname("Doe");
         requestDto.setEmail("john.doe@example.com");
@@ -45,7 +43,7 @@ public class CrearUsuarioTest {
         requestDto.setPhone("+1234567890");
 
         UsuarioModel requestModel = new UsuarioModel();
-        requestModel.setDocumentID(123456L);
+        requestModel.setDocumentID("123456");
         requestModel.setName("John");
         requestModel.setLastname("Doe");
         requestModel.setEmail("john.doe@example.com");
@@ -55,7 +53,7 @@ public class CrearUsuarioTest {
 
         UsuarioModel responseModel = new UsuarioModel();
         responseModel.setId(UUID.randomUUID());
-        responseModel.setDocumentID(123456L);
+        responseModel.setDocumentID("123456");
         responseModel.setName("John");
         responseModel.setLastname("Doe");
         responseModel.setEmail("john.doe@example.com");
@@ -65,23 +63,23 @@ public class CrearUsuarioTest {
 
         UsuarioResponseDto responseDto = new UsuarioResponseDto();
         responseDto.setId(responseModel.getId());
-        responseDto.setDocumentID(123456L);
+        responseDto.setDocumentID("123456");
         responseDto.setName("John");
         responseDto.setLastname("Doe");
         responseDto.setEmail("john.doe@example.com");
 
-        when(usuarioMapper.usuarioAdministradorRequestDtoToUsuarioRequestModel(requestDto)).thenReturn(requestModel);
-        when(crearUsuarioServicePortIn.crearUsuario(requestModel)).thenReturn(responseModel);
-        when(usuarioMapper.usuarioAdminRequestDtoToModel(responseModel)).thenReturn(responseDto);
+        when(usuarioMapper.usuarioOwnerRequestDtoToModel(requestDto)).thenReturn(requestModel);
+        when(crearUsuarioServicePortIn.crearUsuarioOwner(requestModel)).thenReturn(responseModel);
+        when(usuarioMapper.modelToUsuarioResponse(responseModel)).thenReturn(responseDto);
 
         // Act
-        UsuarioResponseDto result = crearUsuarioUseCase.crearUsuarioAdministrador(requestDto);
+        UsuarioResponseDto result = crearUsuarioUseCase.crearUsuarioOwner(requestDto);
 
         // Assert
         assertEquals(responseDto, result);
-        verify(usuarioMapper).usuarioAdministradorRequestDtoToUsuarioRequestModel(requestDto);
-        verify(crearUsuarioServicePortIn).crearUsuario(requestModel);
-        verify(usuarioMapper).usuarioAdminRequestDtoToModel(responseModel);
+        verify(usuarioMapper).usuarioOwnerRequestDtoToModel(requestDto);
+        verify(crearUsuarioServicePortIn).crearUsuarioOwner(requestModel);
+        verify(usuarioMapper).modelToUsuarioResponse(responseModel);
 
     }
 }
