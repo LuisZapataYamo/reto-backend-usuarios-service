@@ -21,7 +21,6 @@ public class UsuarioResponseDto {
     private String documentID;
     private String phone;
     private String email;
-    //private String password;
     private LocalDate birthDate;
     private UserRolEnum rol;
 }

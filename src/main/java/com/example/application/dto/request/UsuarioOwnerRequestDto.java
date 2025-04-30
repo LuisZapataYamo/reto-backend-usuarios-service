@@ -1,14 +1,9 @@
 package com.example.application.dto.request;
 
-import com.example.domain.enums.UserRolEnum;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.time.LocalDate;
 
