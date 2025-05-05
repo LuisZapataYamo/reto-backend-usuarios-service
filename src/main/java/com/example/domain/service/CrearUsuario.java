@@ -8,16 +8,19 @@ import com.example.domain.validators.UsuarioValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @RequiredArgsConstructor
 public class CrearUsuario implements ICrearUsuarioServicePortIn {
     private final IUsuarioServicePortOut crearUsuarioServicePortOut;
 
     @Override
-    public UsuarioModel crearUsuarioOwner(UsuarioModel usuarioRequestModel) {
-        usuarioRequestModel.setRol(UserRolEnum.OWNER);
+    public UsuarioModel crearUsuarioOwner(UsuarioModel usuarioRequestModel, UserRolEnum rol) {
+        usuarioRequestModel.setRol(UserRolEnum.ROLE_OWNER);
         usuarioRequestModel.sanitize();
-        UsuarioValidator.validateUsuarioOwner(usuarioRequestModel);
+        UsuarioValidator.validateCreateUsuarioOwner(usuarioRequestModel, rol);
+        usuarioRequestModel.setId(UUID.randomUUID());
         return crearUsuarioServicePortOut.crearUsuario(usuarioRequestModel);
     }
 }

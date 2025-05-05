@@ -9,4 +9,8 @@ public interface IUsuarioServicePortOut {
     UsuarioModel crearUsuario(UsuarioModel usuarioModel);
 
     UsuarioModel getUsuarioByID(UUID usuarioID);
+
+    UsuarioModel getUsuarioByDocumenId(String documentId);
+
+    UsuarioModel getUsuarioByEmail(String email);
 }

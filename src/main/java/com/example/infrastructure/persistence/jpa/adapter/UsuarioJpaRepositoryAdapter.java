@@ -1,8 +1,8 @@
 package com.example.infrastructure.persistence.jpa.adapter;
 
-import com.example.domain.exception.UsuarioNotFound;
 import com.example.domain.model.UsuarioModel;
 import com.example.domain.port.out.IUsuarioServicePortOut;
+import com.example.infrastructure.exception.EntityException;
 import com.example.infrastructure.persistence.jpa.entity.UsuarioEntity;
 import com.example.infrastructure.persistence.jpa.repository.JpaUsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,7 +28,25 @@ public class UsuarioJpaRepositoryAdapter implements IUsuarioServicePortOut {
 
     @Override
     public UsuarioModel getUsuarioByID(UUID usuarioID) {
-        UsuarioEntity usuarioEntity = jpaUsuarioRepository.findById(usuarioID).orElseThrow(UsuarioNotFound::new);
+        UsuarioEntity usuarioEntity = jpaUsuarioRepository.findById(usuarioID).orElseThrow(
+                () -> new EntityException(String.format("Usuario by ID %s not found.", usuarioID))
+        );
+        return objectMapper.convertValue(usuarioEntity, UsuarioModel.class);
+    }
+
+    @Override
+    public UsuarioModel getUsuarioByDocumenId(String documentId) {
+        UsuarioEntity usuarioEntity = jpaUsuarioRepository.findByDocumentID(documentId).orElseThrow(
+                () -> new EntityException(String.format("Usuario by documentID %s not found.", documentId))
+        );
+        return objectMapper.convertValue(usuarioEntity, UsuarioModel.class);
+    }
+
+    @Override
+    public UsuarioModel getUsuarioByEmail(String email) {
+        UsuarioEntity usuarioEntity = jpaUsuarioRepository.findByEmail(email).orElseThrow(
+                () -> new EntityException(String.format("Usuario by email %s not found.", email))
+        );
         return objectMapper.convertValue(usuarioEntity, UsuarioModel.class);
     }
 

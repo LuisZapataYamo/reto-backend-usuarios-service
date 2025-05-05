@@ -14,3 +14,16 @@ spring:
 
 server:
   port: 8081
+
+
+jwt:
+  sk: "b3ba713b5b590cdd4fb0b0033952cb737ef82c5cd3aadb1ece37bfbaa65afff78e99a90a0b7abca2dde2018426fe2135fe8bfa6df10244c2ca1befc3230dd6cec7dae7ac8ac1bb257fc02af8ee151aa483760c1b7754420b6de5006b03993d5e9466022d9355ba27586dd176bacb7a9377339f50e3ec015938cb5c49c6da8318f8a6c16cddaeb94a6602e9527036a86ed17ee6ef4d5ab98de983c9e5dd6759f7d4729c85350d5ed50ba33a7967ba8a093fc458f3c77d77c0147e0babf56f57897270bae7d09b136d04ec9ae4e30549c8245343c751bee9e76b0eb43d0a8cc1f5f9811e39b3e94a14c178396e8d9f1ec201f469aae54df2aec81e9580a6499a06"
+  exp: 1800
+logging:
+    level:
+        org.springframework.web: DEBUG
+#        org.hibernate.SQL: DEBUG
+#        org.hibernate.type: TRACE
+        org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+#    file:
+#      name: /var/log/usuarios-service.log

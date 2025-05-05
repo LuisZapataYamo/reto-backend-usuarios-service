@@ -4,6 +4,7 @@ import com.example.application.dto.request.UsuarioOwnerRequestDto;
 import com.example.application.dto.response.UsuarioResponseDto;
 import com.example.application.mapper.UsuarioMapper;
 import com.example.application.usecase.interfaces.ICrearUsuarioUseCase;
+import com.example.domain.enums.UserRolEnum;
 import com.example.domain.model.UsuarioModel;
 import com.example.domain.port.in.ICrearUsuarioServicePortIn;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,8 @@ public class CrearUsuarioUseCase implements ICrearUsuarioUseCase {
     private final UsuarioMapper usuarioMapper;
 
     @Override
-    public UsuarioResponseDto crearUsuarioOwner(UsuarioOwnerRequestDto usuarioOwnerRequestDto) {
-        UsuarioModel response = crearUsuarioServicePortIn.crearUsuarioOwner(usuarioMapper.usuarioOwnerRequestDtoToModel(usuarioOwnerRequestDto));
+    public UsuarioResponseDto crearUsuarioOwner(UsuarioOwnerRequestDto usuarioOwnerRequestDto, String userAuthenticatedRol) {
+        UsuarioModel response = crearUsuarioServicePortIn.crearUsuarioOwner(usuarioMapper.usuarioOwnerRequestDtoToModel(usuarioOwnerRequestDto), UserRolEnum.valueOf(userAuthenticatedRol));
         return usuarioMapper.modelToUsuarioResponse(response);
     }
 }

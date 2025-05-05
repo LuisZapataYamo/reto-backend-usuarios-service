@@ -22,7 +22,7 @@ public class UsuarioOwnerRequestDto {
     @NotNull
     private String documentID;
 
-    @Pattern(regexp = "\\+?[0-9]{1,12}")
+    @Pattern(regexp = "\\+?\\d{1,12}")
     private String phone;
 
     @Email
