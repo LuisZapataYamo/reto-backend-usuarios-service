@@ -3,6 +3,7 @@ package com.example.infrastructure.security.filters;
 
 import com.example.infrastructure.dto.ErrorResponseDto;
 import com.example.infrastructure.persistence.jpa.entity.UsuarioEntity;
+import com.example.infrastructure.security.constants.JwtClaimsConstants;
 import com.example.infrastructure.security.service.UsuarioServiceDetail;
 import com.example.infrastructure.security.utils.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -38,11 +40,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 String token = authorizationHeader.replace("Bearer ", "");
                 if (SecurityContextHolder.getContext().getAuthentication() == null) {
 
-                    if (jwtUtil.getClaimFromToken(token, "client_id") != null) {
-                        autenticarMicroservicio(token);
-                    } else {
-                        autenticarUsuarioHumano(token);
+                    String role = jwtUtil.getClaimFromToken(token, JwtClaimsConstants.ROLE_FIELD);
+
+                    if(role == null) {
+                        manejarError(
+                                response,
+                                "Token not valid",
+                                "Role not found in token"
+                        );
                     }
+
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                            null, token, List.of(new SimpleGrantedAuthority(role)));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+
                 }
             }
             filterChain.doFilter(request, response);
@@ -54,29 +65,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
     }
 
-    private void autenticarUsuarioHumano(String token) {
-        String username = jwtUtil.getSubjectFromToken(token);
-        UsuarioEntity userEntity = userDetailsService.loadUserByUsername(username);
-        if (Boolean.TRUE.equals(jwtUtil.validateToken(token, userEntity))) {
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                    userEntity, null, userEntity.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
-    }
-
-
-    private void autenticarMicroservicio(String token) {
-        String clientId = jwtUtil.getClaimFromToken(token, "client_id");
-        String role = jwtUtil.getClaimFromToken(token, "role");
-
-        UsuarioEntity servicio = new UsuarioEntity();
-        servicio.setDocumentID(clientId);
-        servicio.setRol(role != null ? role : "ROLE_SERVICE");
-
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                servicio, null, servicio.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(auth);
-    }
 
     private void manejarError(HttpServletResponse response, String error, String mensaje) throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

@@ -5,6 +5,6 @@ import com.example.application.dto.response.UsuarioResponseDto;
 
 public interface ICrearUsuarioUseCase {
 
-    UsuarioResponseDto crearUsuarioOwner(UsuarioOwnerRequestDto usuarioRequestModel, String userAuthenticateRol);
+    UsuarioResponseDto crearUsuarioOwner(UsuarioOwnerRequestDto usuarioRequestModel);
 
 }

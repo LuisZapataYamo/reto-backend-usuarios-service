@@ -34,6 +34,11 @@ public class UsuarioValidator {
         validateLegalAge(usuario.getBirthDate());
     }
 
+    public static void validateLoginUsuario(UsuarioModel usuario) {
+        validateDocumentID(usuario.getDocumentID());
+        validatePassword(usuario.getPassword());
+    }
+
     private static void validateName(String name) {
         if(name == null || name.isEmpty()){
             throw new UsuarioException(

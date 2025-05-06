@@ -1,5 +1,6 @@
 package com.example.infrastructure.security.utils;
 
+import com.example.domain.port.out.IJwtServicePortOut;
 import com.example.infrastructure.persistence.jpa.entity.UsuarioEntity;
 import io.jsonwebtoken.Jwts;
 import jakarta.annotation.PostConstruct;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-public class JwtUtil {
+public class JwtUtil implements IJwtServicePortOut {
 
     @Value("${jwt.sk}")
     private String secretKey;
@@ -29,6 +30,7 @@ public class JwtUtil {
         this.hashSecretKey = Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 
+    @Override
     public String generateToken(String subject , Map<String, Object> claims) {
         Date now = new Date();
         Date dateExpiration = new Date(now.getTime() + 1000 * timeExpiration); // 1 hora
@@ -41,14 +43,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    public Map<String, Object> getClaimsFromToken(String token) {
-        return Jwts.parser()
-                .verifyWith(hashSecretKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-    }
-
+    @Override
     public String getClaimFromToken(String token, String claim) {
         return Jwts.parser()
                 .verifyWith(hashSecretKey)
@@ -58,6 +53,7 @@ public class JwtUtil {
                 .get(claim, String.class);
     }
 
+    @Override
     public String getSubjectFromToken(String token) {
         return Jwts.parser()
                 .verifyWith(hashSecretKey)
@@ -67,20 +63,4 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    public Boolean isTokenExpired(String token) {
-
-        Date expiration = Jwts.parser()
-                .verifyWith(hashSecretKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload()
-                .getExpiration();
-        return expiration.before(new Date());
-    }
-
-    public Boolean validateToken(String token, UsuarioEntity userEntity) {
-        boolean isTokenExpired = isTokenExpired(token);
-        boolean isUserEnabled = userEntity.isEnabled();
-        return !isTokenExpired && isUserEnabled;
-    }
 }

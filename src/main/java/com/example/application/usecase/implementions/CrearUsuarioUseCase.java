@@ -18,8 +18,8 @@ public class CrearUsuarioUseCase implements ICrearUsuarioUseCase {
     private final UsuarioMapper usuarioMapper;
 
     @Override
-    public UsuarioResponseDto crearUsuarioOwner(UsuarioOwnerRequestDto usuarioOwnerRequestDto, String userAuthenticatedRol) {
-        UsuarioModel response = crearUsuarioServicePortIn.crearUsuarioOwner(usuarioMapper.usuarioOwnerRequestDtoToModel(usuarioOwnerRequestDto), UserRolEnum.valueOf(userAuthenticatedRol));
+    public UsuarioResponseDto crearUsuarioOwner(UsuarioOwnerRequestDto usuarioOwnerRequestDto) {
+        UsuarioModel response = crearUsuarioServicePortIn.crearUsuarioOwner(usuarioMapper.usuarioOwnerRequestDtoToModel(usuarioOwnerRequestDto));
         return usuarioMapper.modelToUsuarioResponse(response);
     }
 }
