@@ -1,7 +1,6 @@
 package com.example.infrastructure.security.utils;
 
 import com.example.domain.port.out.IJwtServicePortOut;
-import com.example.infrastructure.persistence.jpa.entity.UsuarioEntity;
 import io.jsonwebtoken.Jwts;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

@@ -1,11 +1,12 @@
 package com.example.domain.service;
 
+import com.example.domain.constants.HttpCodesConstants;
+import com.example.domain.constants.UserExceptionConstants;
 import com.example.domain.exception.UsuarioException;
 import com.example.domain.model.UsuarioModel;
 import com.example.domain.port.in.IObtenerUsuarioServicePortIn;
 import com.example.domain.port.out.IUsuarioServicePortOut;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -22,9 +23,9 @@ public class ObtenerUsuario implements IObtenerUsuarioServicePortIn {
 
         if(usuarioModel.equals(new UsuarioModel())) {
             throw new UsuarioException(
-                    "Usuario no encontrado",
-                    "USER_NOT_FOUND",
-                    HttpStatus.NOT_FOUND
+                    UserExceptionConstants.USER_NOT_FOUND.getMessage(),
+                    UserExceptionConstants.USER_NOT_FOUND.name(),
+                    HttpCodesConstants.NOT_FOUND
             );
         }
 

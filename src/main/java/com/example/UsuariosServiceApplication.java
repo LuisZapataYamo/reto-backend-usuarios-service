@@ -33,7 +33,10 @@ public class UsuariosServiceApplication implements CommandLineRunner {
         String adminPassword = "123456789";
 
         try {
-            usuarioServicePortOut.getUsuarioByEmail(adminEmail);
+            UsuarioModel user = usuarioServicePortOut.getUsuarioByEmail(adminEmail);
+            if(user.equals(new UsuarioModel())) {
+                throw new EntityException("El usuario no existe");
+            }
             log.info("El usuario admin ya existe.");
         } catch (EntityException e) {
             log.info("El usuario admin no existe. Creando usuario admin...");

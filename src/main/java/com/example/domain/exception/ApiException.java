@@ -1,22 +1,17 @@
 package com.example.domain.exception;
 
-import org.springframework.http.HttpStatus;
+import com.example.domain.constants.HttpCodesConstants;
+import lombok.Getter;
 
+@Getter
 public abstract class ApiException extends RuntimeException {
     private final String errorCode;
-    private final HttpStatus httpStatus;
+    private final HttpCodesConstants httpStatus;
 
-    protected ApiException(String message, String errorCode, HttpStatus httpStatus) {
+    protected ApiException(String message, String errorCode, HttpCodesConstants httpStatus) {
         super(message);
         this.errorCode = errorCode;
         this.httpStatus = httpStatus;
     }
 
-    public String getErrorCode() {
-        return errorCode;
-    }
-
-    public HttpStatus getHttpStatus() {
-        return httpStatus;
-    }
 }

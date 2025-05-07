@@ -1,4 +1,4 @@
-package com.example.infrastructure.security.constants;
+package com.example.infrastructure.constants;
 
 public class JwtClaimsConstants {
 
@@ -6,5 +6,5 @@ public class JwtClaimsConstants {
         // Prevent instantiation
     }
 
-    public static String ROLE_FIELD = "role";
+    public static final String ROLE_FIELD = "role";
 }

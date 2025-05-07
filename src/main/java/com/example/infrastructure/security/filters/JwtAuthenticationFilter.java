@@ -1,10 +1,9 @@
 package com.example.infrastructure.security.filters;
 
 
+import com.example.infrastructure.constants.JwtExceptionsConstants;
 import com.example.infrastructure.dto.ErrorResponseDto;
-import com.example.infrastructure.persistence.jpa.entity.UsuarioEntity;
-import com.example.infrastructure.security.constants.JwtClaimsConstants;
-import com.example.infrastructure.security.service.UsuarioServiceDetail;
+import com.example.infrastructure.constants.JwtClaimsConstants;
 import com.example.infrastructure.security.utils.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -28,7 +27,6 @@ import java.util.List;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
-    private final UsuarioServiceDetail userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -45,8 +43,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     if(role == null) {
                         manejarError(
                                 response,
-                                "Token not valid",
-                                "Role not found in token"
+                                JwtExceptionsConstants.TOKEN_INVALID_CODE,
+                                JwtExceptionsConstants.TOKEN_NO_CONTAINT_ROLE_MESSAGE
                         );
                     }
 
@@ -59,9 +57,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 
         } catch (ExpiredJwtException e) {
-            manejarError(response, "Token expired", e.getMessage());
+            manejarError(response, JwtExceptionsConstants.TOKEN_EXPIRED_CODE, JwtExceptionsConstants.TOKEN_EXPIRED_MESSAGE);
         } catch (JwtException e) {
-            manejarError(response, "Token not valid", e.getMessage());
+            manejarError(response, JwtExceptionsConstants.TOKEN_INVALID_CODE, JwtExceptionsConstants.TOKEN_INVALID_MESSAGE);
         }
     }
 

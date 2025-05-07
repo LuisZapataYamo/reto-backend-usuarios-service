@@ -4,7 +4,6 @@ import com.example.application.dto.request.UsuarioOwnerRequestDto;
 import com.example.application.dto.response.UsuarioResponseDto;
 import com.example.application.mapper.UsuarioMapper;
 import com.example.application.usecase.interfaces.ICrearUsuarioUseCase;
-import com.example.domain.enums.UserRolEnum;
 import com.example.domain.model.UsuarioModel;
 import com.example.domain.port.in.ICrearUsuarioServicePortIn;
 import lombok.RequiredArgsConstructor;

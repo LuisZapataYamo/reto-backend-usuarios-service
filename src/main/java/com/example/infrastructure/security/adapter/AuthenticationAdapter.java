@@ -1,10 +1,9 @@
 package com.example.infrastructure.security.adapter;
 
 import com.example.domain.enums.UserRolEnum;
-import com.example.domain.model.UserAuthenticatedModel;
 import com.example.domain.model.UsuarioModel;
 import com.example.domain.port.out.IAuthenticateServicePortOut;
-import com.example.infrastructure.security.constants.JwtClaimsConstants;
+import com.example.infrastructure.constants.JwtClaimsConstants;
 import com.example.infrastructure.security.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,18 +21,22 @@ public class AuthenticationAdapter implements IAuthenticateServicePortOut {
 
     @Override
     public UsuarioModel getUserAuthenticate() {
-        String token = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
-        String email = jwtUtil.getSubjectFromToken(token);
-        String rol = jwtUtil.getClaimFromToken(token, JwtClaimsConstants.ROLE_FIELD);
-        UsuarioModel userAuthenticate = new UsuarioModel();
-        userAuthenticate.setEmail(email);
-        userAuthenticate.setRol(UserRolEnum.valueOf(rol));
-        return userAuthenticate;
+        try {
+            String token = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
+            String email = jwtUtil.getSubjectFromToken(token);
+            String rol = jwtUtil.getClaimFromToken(token, JwtClaimsConstants.ROLE_FIELD);
+            UsuarioModel userAuthenticate = new UsuarioModel();
+            userAuthenticate.setEmail(email);
+            userAuthenticate.setRol(UserRolEnum.valueOf(rol));
+            return userAuthenticate;
+        }catch (Exception e){
+            return new UsuarioModel();
+        }
     }
 
     @Override
-    public boolean isCorrectPassword(UsuarioModel usuarioModel, String password) {
-        return passwordEncoder.matches(password, usuarioModel.getPassword());
+    public boolean isCorrectPassword(UsuarioModel usuarioModel, String passwordEncoded) {
+        return passwordEncoder.matches(usuarioModel.getPassword(), passwordEncoded);
     }
 
     @Override
