@@ -1,9 +1,9 @@
 package com.example.domain.exception;
 
-import org.springframework.http.HttpStatus;
+import com.example.domain.constants.HttpCodesConstants;
 
-public abstract class UsuarioException extends ApiException {
-    protected UsuarioException(String message, String errorCode, HttpStatus httpStatus) {
+public class UsuarioException extends ApiException {
+    public UsuarioException(String message, String errorCode, HttpCodesConstants httpStatus) {
         super(message, errorCode, httpStatus);
     }
 }

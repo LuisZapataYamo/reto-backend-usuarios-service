@@ -6,8 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -16,7 +20,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class UsuarioEntity {
+public class UsuarioEntity implements UserDetails {
 
     @Id
     private UUID id;
@@ -24,7 +28,7 @@ public class UsuarioEntity {
     private String lastname;
 
     @Column(unique = true)
-    private Long documentID;
+    private String documentID;
 
     @Column(unique = true)
     private String phone;
@@ -33,20 +37,21 @@ public class UsuarioEntity {
     private String email;
     private String password;
     private LocalDate birthDate;
-    private UserRolEnum rol;
+    private String rol;
 
-    private LocalDate createAt;
-    private LocalDate updateAt;
-
-    @PrePersist
-    private void onCreate() {
-        this.id = UUID.randomUUID();
-        this.createAt = LocalDate.now();
-        this.updateAt = LocalDate.now();
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(() -> this.rol);
     }
 
-    @PreUpdate
-    private void onUpdate() {
-        this.updateAt = LocalDate.now();
+    @Override
+    public String getUsername() {
+        return this.email;
     }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 }

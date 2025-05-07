@@ -3,6 +3,7 @@ package com.example.infrastructure.exception;
 import com.example.domain.exception.ApiException;
 import com.example.infrastructure.dto.ErrorResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -23,7 +24,7 @@ public class ApiExceptionHandler {
         );
 
         return ResponseEntity
-                .status(exception.getHttpStatus())
+                .status(HttpStatus.valueOf(exception.getHttpStatus().getCode()))
                 .body(errorResponse);
     }
 }

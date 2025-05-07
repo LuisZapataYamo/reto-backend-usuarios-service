@@ -1,5 +1,5 @@
 package com.example.domain.enums;
 
 public enum UserRolEnum {
-    ADMIN, CLIENT, OWNER, EMPLOYEE;
+    ROLE_ADMIN, ROLE_CLIENT, ROLE_OWNER, ROLE_EMPLOYEE;
 }
