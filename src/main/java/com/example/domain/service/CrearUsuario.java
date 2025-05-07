@@ -35,4 +35,23 @@ public class CrearUsuario implements ICrearUsuarioServicePortIn {
 
         return crearUsuarioServicePortOut.crearUsuario(usuarioRequestModel);
     }
+
+    @Override
+    public UsuarioModel crearUsuarioEmployee(UsuarioModel usuarioRequestModel) {
+        UsuarioModel userAuthenticate = authenticateServicePortOut.getUserAuthenticate();
+
+        UsuarioValidator.validateUserAuthenticated(userAuthenticate);
+
+        usuarioRequestModel.setRol(UserRolEnum.ROLE_EMPLOYEE);
+        usuarioRequestModel.sanitize();
+
+        UsuarioValidator.validateCreateUsuarioEmployee(usuarioRequestModel, userAuthenticate.getRol());
+
+        usuarioRequestModel.setId(UUID.randomUUID());
+
+        String passwordEncrypted = authenticateServicePortOut.encryptPassword(usuarioRequestModel.getPassword());
+        usuarioRequestModel.setPassword(passwordEncrypted);
+
+        return crearUsuarioServicePortOut.crearUsuario(usuarioRequestModel);
+    }
 }

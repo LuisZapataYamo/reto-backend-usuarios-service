@@ -48,6 +48,25 @@ public class UsuarioValidator {
         validateLegalAge(usuario.getBirthDate());
     }
 
+    public static void validateCreateUsuarioEmployee(UsuarioModel usuario, UserRolEnum userAuthenticatedRol) {
+        if (!userAuthenticatedRol.equals(UserRolEnum.ROLE_OWNER)) {
+            throw new UsuarioException(
+                    UserExceptionConstants.USER_AUTHENTICATED_NOT_AUTHORIZED.getMessage(),
+                    UserExceptionConstants.USER_AUTHENTICATED_NOT_AUTHORIZED.name(),
+                    HttpCodesConstants.FORBIDDEN
+            );
+        }
+
+        validateName(usuario.getName());
+        validateLastname(usuario.getLastname());
+        validateDocumentID(usuario.getDocumentID());
+        validatePhone(usuario.getPhone());
+        validateBirthDate(usuario.getBirthDate());
+        validateEmail(usuario.getEmail());
+        validatePassword(usuario.getPassword());
+        validateLegalAge(usuario.getBirthDate());
+    }
+
     public static void validateLoginUsuario(UsuarioModel usuario) {
         validateEmail(usuario.getEmail());
         validatePassword(usuario.getPassword());
