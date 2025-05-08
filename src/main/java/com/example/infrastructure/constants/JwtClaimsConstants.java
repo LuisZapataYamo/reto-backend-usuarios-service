@@ -7,4 +7,5 @@ public class JwtClaimsConstants {
     }
 
     public static final String ROLE_FIELD = "role";
+    public static final String ID_FIELD = "idUsuario";
 }
