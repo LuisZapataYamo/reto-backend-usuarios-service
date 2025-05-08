@@ -72,6 +72,16 @@ public class UsuarioValidator {
         validatePassword(usuario.getPassword());
     }
 
+    public static void validateUsuarioClient(UsuarioModel usuario) {
+        validateName(usuario.getName());
+        validateLastname(usuario.getLastname());
+        validateDocumentID(usuario.getDocumentID());
+        validatePhone(usuario.getPhone());
+        validateBirthDate(usuario.getBirthDate());
+        validateEmail(usuario.getEmail());
+        validatePassword(usuario.getPassword());
+    }
+
     private static void validateName(String name) {
         if (name == null || name.isEmpty()) {
             throw new UsuarioException(

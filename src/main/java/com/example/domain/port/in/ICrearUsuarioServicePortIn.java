@@ -6,4 +6,5 @@ public interface ICrearUsuarioServicePortIn {
 
     UsuarioModel crearUsuarioOwner(UsuarioModel usuarioRequestModel);
     UsuarioModel crearUsuarioEmployee(UsuarioModel usuarioRequestModel);
+    UsuarioModel crearUsuarioClient(UsuarioModel usuarioRequestModel);
 }

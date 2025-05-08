@@ -8,5 +8,6 @@ public interface ICrearUsuarioUseCase {
 
     UsuarioResponseDto crearUsuarioOwner(UsuarioOwnerRequestDto usuarioRequestModel);
     UsuarioResponseDto crearUsuarioEmployee(UsuarioEmployeeRequestDto usuarioRequestModel);
+    UsuarioResponseDto crearUsuarioClient(UsuarioEmployeeRequestDto usuarioRequestModel);
 
 }

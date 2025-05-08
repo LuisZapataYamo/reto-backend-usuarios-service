@@ -29,4 +29,10 @@ public class CrearUsuarioUseCase implements ICrearUsuarioUseCase {
         UsuarioModel response = crearUsuarioServicePortIn.crearUsuarioEmployee(usuarioMapper.usuarioEmployeeRequestDtoToModel(usuarioEmployeeRequestDto));
         return usuarioMapper.modelToUsuarioResponse(response);
     }
+
+    @Override
+    public UsuarioResponseDto crearUsuarioClient(UsuarioEmployeeRequestDto usuarioClientRequestModel) {
+        UsuarioModel response = crearUsuarioServicePortIn.crearUsuarioClient(usuarioMapper.usuarioEmployeeRequestDtoToModel(usuarioClientRequestModel));
+        return usuarioMapper.modelToUsuarioResponse(response);
+    }
 }
