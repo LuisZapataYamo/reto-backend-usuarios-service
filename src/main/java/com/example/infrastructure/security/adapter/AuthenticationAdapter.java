@@ -44,6 +44,7 @@ public class AuthenticationAdapter implements IAuthenticateServicePortOut {
         String subject = usuarioModel.getEmail();
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstants.ROLE_FIELD, usuarioModel.getRol().toString());
+        claims.put(JwtClaimsConstants.ID_FIELD, usuarioModel.getId());
         return jwtUtil.generateToken(subject, claims);
     }
 
